@@ -34,25 +34,26 @@ def elevador():
         
         elif chamar_elevador == "s":
             pessoas_elevador = int(input("Quantas pessoas irão usar o elevador? \n"))
-            if pessoas_elevador > 5:
-                print("Elevador está cheio!")
-            elif pessoas_elevador <=5:
-                andar_elevador = int(input("Qual andar você deseja ir? \n "))
-            if andar_elevador >10:
-                print("Este andar não existe!")
+        if pessoas_elevador > 5:
+            print("Elevador está cheio!")
+        if pessoas_elevador <= 5:
+            andar_elevador = int(input("Qual andar você deseja ir? \n "))
+        if andar_elevador >= 10:
+            andar_elevador = 0
+            print("Este andar não existe!")
                 
-            elif andar_elevador < andar_atual:
-                print ("Descendo...")
-                time.sleep(4)
-                print("O elevador chegou no seu andar!")
-                print(f"Seu andar atual é {andar_elevador}.")
-                andar_atual = andar_elevador + andar_atual
+        elif andar_elevador < andar_atual:
+            print ("Descendo...")
+            time.sleep(4)
+            print("O elevador chegou no seu andar!")
+            print(f"Seu andar atual é {andar_elevador}.")
+            andar_atual = andar_elevador + andar_atual
 
-            elif andar_elevador >andar_atual:
-                print ("Subindo...")
-                time.sleep(4)
-                print("O elevador chegou no seu andar!")
-                print(f"Seu andar atual é {andar_elevador}.")
-                andar_atual = andar_elevador - andar_atual
+        elif andar_elevador >andar_atual:
+            print ("Subindo...")
+            time.sleep(4)
+            print("O elevador chegou no seu andar!")
+            print(f"Seu andar atual é {andar_elevador}.")
+            andar_atual = andar_elevador - andar_atual
 
 elevador()
