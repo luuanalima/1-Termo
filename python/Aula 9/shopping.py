@@ -1,97 +1,154 @@
 total_vagas = 500
 vagas_tag = 50
 vagas_ocupadas = 0
-
-registros = {}
+livres = total_vagas - vagas_ocupadas
 
 while True:
     print("1- Entrada TAG")
     print("2- Entrada Ticket")
     print("3- Pagar")
-    print("4- Saída")
-    print("5- Perda de Ticket")
+    print("4- Perda de Ticket")
     print("0- Sair")
 
     opcao = input("Escolha: ")
 
     if opcao == "1":
-        id_tag = input("Informe o ID da TAG: ")
+        tag = input("Qual é o ID da sua TAG: ")
         ativa = input("A TAG está ativa? (s/n): ")
 
         if ativa == "s":
-            registros[id_tag] = {
-                "tipo": "TAG",
-                "entrada": (),
-                "pago": False
-            }
-            vagas_ocupadas += 1
-            print("Entrada liberada (TAG)")
+            print("Pode entrar")
         else:
             print("TAG inválida")
 
     elif opcao == "2":
-        vagas_comuns = (total_vagas - vagas_tag) - vagas_ocupadas
+        livres = total_vagas - vagas_ocupadas
 
-        if vagas_comuns > 0:
-            id_ticket = input("ID do Ticket: ")
-            registros[id_ticket] = {
-                "tipo": "TICKET",
-                "entrada": (),
-                "pago": False
-            }
-            vagas_ocupadas += 1
+        if livres > 0:
+            ticket = input("ID do Ticket: ")
             print("Ticket emitido")
+            total_vagas = livres - 1
         else:
             print("Estacionamento lotado (vagas comuns)")
 
     elif opcao == "3":
-        id_registro = input("ID: ")
+        id = input("Você entrou com tag ou ticket?\n ").strip().lower()
 
-        if id_registro in registros:
-            entrada = registros[id_registro]["entrada"]
-            tipo = registros[id_registro]["tipo"]
 
-            minutos = int(input("Quantos minutos você permaneceu? "))
+        if id == "tag":
+            valor = 0
+            minutos = float(input("Informe o tempo que você ficou no shopping em minutos: "))
 
-            if minutos <= 15:
-                valor = 0
-            elif minutos <= 180:
+            if minutos <= 0.15:
+                print("Obrigado.")
+
+            elif 0.15 > minutos <3:
+                
+                valor = valor - (valor * 10 /100)
+
+
+            else:
+                valor = 25
+                valor = valor - (valor * 10 /100)
+
+
+            print(f"Valor: {valor:.2f}")
+            forma_pagamento = input("Informe a sua forma de pagamento\n1-Débito\n2-Pix\n")
+            if forma_pagamento =="1":
+                saldo = float(input("Informe o saldo na sua conta:\n"))
+                saldo_restante = saldo - valor
+                if saldo >= valor:
+                    print ("Acesso Liberado!")
+                    print("Pagamento realizado")
+                    print(f"Saldo restante:R${saldo_restante:.2f}")
+                    total_vagas = +1
+                    continue
+
+                else:
+                    print("Saldo Insuficiente")
+
+            if forma_pagamento =="2":
+                saldo = float(input("Informe o saldo na sua conta:\n"))
+                saldo_restante = saldo - valor
+                if saldo >= valor:
+                    print ("Acesso Liberado!")
+                    print("Pagamento realizado")
+                    print(f"Saldo restante:R${saldo_restante:.2f}")
+                    total_vagas = +1
+
+                    continue
+                else:
+                    print("Saldo Insuficiente")
+
+        elif id == "ticket":
+             minutos = int(input("Informe o tempo que você ficou no shopping em minutos: "))
+
+             if minutos <= 15:
+              valor = 0
+
+             elif minutos <= 180:
                 valor = 15
 
-            if tipo == "TAG":
-                valor = valor * 0.9
+             else:
+              valor = 25
+            
+             print(f"Valor: {valor:.2f}")
+             forma_pagamento = input("Informe a sua forma de pagamento\n1-Débito\n2-Pix\n")
+             if forma_pagamento =="1":
+                  saldo = float(input("Informe o saldo na sua conta:\n"))
+             saldo_restante = saldo - valor
+             if saldo >= valor:
+                    print ("Acesso Liberado!")
+                    print("Pagamento realizado")
+                    print(f"Saldo restante:R${saldo_restante:.2f}")
+                    continue
 
-            registros[id_registro]["pago"] = True
+             else:
+                    print("Saldo Insuficiente")
 
-            print(f"Valor: R$ {valor:.2f}")
-        else:
-            print("Registro não encontrado")
+             if forma_pagamento =="2":
+                saldo = float(input("Informe o saldo na sua conta:\n"))
+                saldo_restante = saldo - valor
+                if saldo >= valor:
+                    print ("Acesso Liberado!")
+                    print("Pagamento realizado")
+                    print(f"Saldo restante:R${saldo_restante:.2f}")
+                    continue
+                else:
+                    print("Saldo Insuficiente")
 
-    elif opcao == "4":
-        id_registro = input("Informe o ID: ")
-
-        if id_registro in registros:
-            if registros[id_registro]["pago"] == True:
-                print("Saída liberada")
-            else:
-                print("Pagamento não realizado")
-        else:
-            print("Registro não encontrado")
-
-    elif opcao == "5":
-        id_temp = input("ID provisório: ")
-
-        registros[id_temp] = {
-            "tipo": "TICKET",
-            "entrada": (),
-            "pago": True
-        }
-
+    if opcao == "4":
+        id_temp = input("Informe o seu ID provisório: ")
+        valor = 50
         print("Cobrança fixa: R$ 50,00")
+        print(f"Valor: {valor:.2f}")
+        forma_pagamento = input("Informe a sua forma de pagamento\n1-Débito\n2-Pix\n")
+        if forma_pagamento =="1":
+                saldo = float(input("Informe o saldo na sua conta:\n"))
+                saldo_restante = saldo - valor
+                if saldo >= valor:
+                    print ("Acesso Liberado!")
+                    print("Pagamento realizado")
+                    print(f"Saldo restante:R${saldo_restante:.2f}")
+                    total_vagas = +1
 
-    elif opcao == "0":
-        print("Encerrando sistema...")
-        break
+                    continue
 
-    else:
-        print("Opção inválida")
+                else:
+                    print("Saldo Insuficiente")
+
+        if forma_pagamento =="2":
+                saldo = float(input("Informe o saldo na sua conta:\n"))
+                saldo_restante = saldo - valor
+                if saldo >= valor:
+                    print ("Acesso Liberado!")
+                    print("Pagamento realizado")
+                    print(f"Saldo restante:R${saldo_restante:.2f}")
+                    total_vagas = +1
+
+                    continue
+                else:
+                    print("Saldo Insuficiente")
+        
+    if opcao == "0":
+         print("Encerrando sistema...")
