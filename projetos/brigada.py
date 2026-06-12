@@ -38,7 +38,7 @@ def brigada():
             print("Treinamento Válido.")
 
         print("Relatório geral:")
-        total_funcionarios = 1  
+        total_funcionarios += 1  
         funcionarios_em_dia = 0
 
         if nr10 == "s":
