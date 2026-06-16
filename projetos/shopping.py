@@ -152,3 +152,4 @@ while True:
         
     if opcao == "0":
          print("Encerrando sistema...")
+    break
