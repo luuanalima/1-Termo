@@ -81,3 +81,12 @@ Projetos
 │   └── exercícios
 │
 └── README.md
+```
+
+<br>
+
+<div align="center">
+
+<strong>Desenvolvido por Luana Lima</strong>
+
+</div>
